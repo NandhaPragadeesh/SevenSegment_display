@@ -1,4 +1,4 @@
-Exp-No: 02 - Write and simulate seven segment display using Verilog HDL and verify with testbench
+## Exp-No: 02 - Write and simulate seven segment display using Verilog HDL and verify with testbench
 Aim:
 
   To design and simulate a Seven Segment using Verilog HDL and verify its functionality through a testbench using the Vivado 2023.1 simulation environment.
@@ -21,11 +21,65 @@ Save and Document Results Save your project by clicking File → Save Project. T
 Close the Simulation Once done, by going to Simulation → "Close Simulation
 
 Input/Output Signal Diagram:
+![WhatsApp Image 2025-09-09 at 15 03 58_193dea28](https://github.com/user-attachments/assets/f876068b-13c7-410e-978d-39bc4ca0e4ad)
 
-RTL Code:
-
+### RTL Code:
+```
+module Sevensegment(bcd,seg);
+input[3:0]bcd;
+output reg[6:0]seg;
+always@(bcd)
+begin
+case(bcd)
+4'b0000:seg=7'b0111111;
+4'b0001:seg=7'b0001010;
+4'b0010:seg=7'b1110011;
+4'b0011:seg=7'b1011011;
+4'b0100:seg=7'b1001110;
+4'b0101:seg=7'b1011101;
+4'b0110:seg=7'b1111101;
+4'b0111:seg=7'b0001011;
+4'b1000:seg=7'b1111111;
+4'b1001:seg=7'b1011111;
+default:seg=7'b0000000;
+endcase
+end
+endmodule
+```
 TestBench:
-
+```
+module Sevensegment_tb;
+reg [3:0] bcd_tb;
+wire [6:0] seg_tb;
+Sevensegment dut(.bcd(bcd_tb),.seg(seg_tb));
+initial
+begin
+bcd_tb = 4'b0000;
+#100;
+bcd_tb = 4'b0001;
+#100;
+bcd_tb = 4'b0010;
+#100;
+bcd_tb = 4'b0011;
+#100;
+bcd_tb = 4'b0100;
+#100;
+bcd_tb = 4'b0101;
+#100;
+bcd_tb = 4'b0110;
+#100;
+bcd_tb = 4'b0111;
+#100;
+bcd_tb = 4'b1000;
+#100;
+bcd_tb = 4'b1001;
+#100;
+end
+endmodule
+```
 Output waveform:
+<img width="1919" height="1106" alt="Screenshot 2025-09-08 082849" src="https://github.com/user-attachments/assets/457505d6-8ca4-426f-a5b4-67c5d85f90a3" />
 
 Conclusion:
+
+In conclusion, a seven-segment display is a simple yet effective electronic display device used to represent decimal numerals and some alphabetic characters. It is widely used in digital clocks, electronic meters, basic calculators, and other devices that display numerical information. The display consists of seven LEDs (segments) arranged in a specific pattern that can be turned on or off to form numbers from 0 to 9 and a few letters.
